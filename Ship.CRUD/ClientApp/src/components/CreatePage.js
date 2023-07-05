@@ -1,4 +1,5 @@
 import React from 'react';
+import FormBody from './FormBody';
 
 const CreatePage = () => {
   const [form, setForm] = React.useState({
@@ -34,10 +35,9 @@ const CreatePage = () => {
         throw new Error(response.statusText);
       }
 
+      alert("Ship Created successfully");
       return response.json();
     });
-    
-    alert("Ship Created successfully");
     event.preventDefault();
     setForm({
       name : "",
@@ -49,22 +49,7 @@ const CreatePage = () => {
 
   return (
     <form className="d-flex flex-column" onSubmit={handleSubmit}>
-      <div style={{ marginBottom: '20px'}}>
-        <label htmlFor="name" style={{ marginRight: '10px'}}>Name</label>
-        <input id="name" type="text" value={form.name} name="name" style={{ width: '291px'}} onChange={handleChange} required />
-      </div>
-      <div style={{ marginBottom: '20px'}}>
-        <label htmlFor="length" style={{ marginRight: '10px'}}>Length</label>
-        <input id="length" type="number" value={form.length} name="length" style={{ width: '288px'}} onChange={handleChange} required/>
-      </div>
-      <div style={{ marginBottom: '20px'}}>
-        <label htmlFor="width" style={{ marginRight: '10px'}}>Width</label>
-        <input id="width" type="number" value={form.width} name="width" style={{ width: '293px'}} onChange={handleChange} required/>
-      </div>
-      <div style={{ marginBottom: '20px'}}>
-        <label htmlFor="code" style={{ marginRight: '10px'}}>Code</label>
-        <input id="code" type="text" type="string" value={form.code} name="code" style={{ width: '300px'}} onChange={handleChange} required/>
-      </div>
+      <FormBody onChange={handleChange} data={form}/>
       <input type="submit" value="Create"  style={{ width: '100px'}}/>
     </form>
   );

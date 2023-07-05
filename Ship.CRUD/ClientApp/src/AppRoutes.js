@@ -1,5 +1,5 @@
 import CreatePage from "./components/CreatePage";
-import { FetchData } from "./components/FetchData";
+import DetailPage from "./components/DetailPage";
 import Home from "./components/Home";
 
 const AppRoutes = [
@@ -13,7 +13,7 @@ const AppRoutes = [
   },
   {
     path: '/detail/:id',
-    element: <FetchData />
+    element: <DetailPage />
   }
 ];
 
