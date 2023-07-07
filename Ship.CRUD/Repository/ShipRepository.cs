@@ -19,7 +19,7 @@ public class ShipRepository : IShipRepository
 
     public async Task<ShipModel?> GetShip(int id)
     {
-        return await context.Ships.FirstOrDefaultAsync(x => x.Id == id);
+        return await CheckIfShipExistsInDb(id);
     }
 
     public async Task<ShipModel> CreateShip(ShipModel ship)
@@ -32,7 +32,7 @@ public class ShipRepository : IShipRepository
 
     public async Task UpdateShip(ShipModel ship, int id)
     {
-        var shipToUpdate = CheckIfShipExistsInDb(id);
+        var shipToUpdate = await CheckIfShipExistsInDb(id);
 
         shipToUpdate.Name = ship.Name;
         shipToUpdate.Width = ship.Width;
@@ -45,15 +45,15 @@ public class ShipRepository : IShipRepository
 
     public async Task DeleteShip(int id)
     {
-        var shipToDelete = CheckIfShipExistsInDb(id);
+        var shipToDelete = await CheckIfShipExistsInDb(id);
 
         context.Remove(shipToDelete);
         await context.SaveChangesAsync();
     }
 
-    private ShipModel CheckIfShipExistsInDb(int id)
+    private async Task<ShipModel> CheckIfShipExistsInDb(int id)
     {
-        var ship = context.Ships.FirstOrDefault(x => x.Id == id);
+        var ship = await context.Ships.FirstOrDefaultAsync(x => x.Id == id);
 
         if (ship is null)
         {

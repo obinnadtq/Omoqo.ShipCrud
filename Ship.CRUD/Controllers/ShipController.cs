@@ -33,8 +33,15 @@ namespace Ship.CRUD.Controllers
         [ProducesResponseType(statusCode: 500, type: typeof(ProblemDetails))]
         public async Task<IActionResult> GetShip([FromRoute] int id)
         {
-            var ship = await shipRepository.GetShip(id);
-            return Ok(mapper.Map<ShipResponseDto>(ship));
+            try
+            {
+                var ship = await shipRepository.GetShip(id);
+                return Ok(mapper.Map<ShipResponseDto>(ship));
+            }
+            catch(Exception e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
         [HttpPost("/ship")]
